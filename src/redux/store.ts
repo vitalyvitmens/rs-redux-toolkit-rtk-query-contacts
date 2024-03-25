@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { contactsSlice } from './contactsReducer'
-import { groupContactsReducer } from './groupContactsReducer'
+import { groupContactsSlice } from './groupContactsReducer'
 import { favoritesSlice } from './favoritesReducer'
 import { logActionMiddleware } from './logActionMiddleware'
 import { composeWithDevTools } from '@redux-devtools/extension'
@@ -13,7 +13,7 @@ const rootReducer = persistReducer(
   { key: 'rs-redux-toolkit-rtk-query-contacts', storage: storage },
   combineReducers({
     contacts: contactsSlice.reducer,
-    groups: groupContactsReducer,
+    groups: groupContactsSlice.reducer,
     favorites: favoritesSlice.reducer,
   })
 )
