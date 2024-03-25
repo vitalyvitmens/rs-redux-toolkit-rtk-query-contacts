@@ -7,7 +7,7 @@ import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { Col, Row } from 'react-bootstrap'
 
 export const ContactListPage = () => {
-  const contactsData: ContactDto[] = useAppSelector((state) => state.contacts.favorites)
+  const contactsData: ContactDto[] = useAppSelector((state) => state.contacts)
   const groupsData: GroupContactsDto[] = useAppSelector((state) => state.groups)
   const [contacts, setContacts] = useState<ContactDto[]>(contactsData)
   const onSubmit = (fv: Partial<FilterFormValues>) => {
