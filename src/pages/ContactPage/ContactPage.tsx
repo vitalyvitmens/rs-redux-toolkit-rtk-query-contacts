@@ -13,7 +13,7 @@ export const ContactPage: FC = () => {
   const contacts = useAppSelector((state) => state.contacts)
 
   useEffect(() => {
-    setContact(() => contacts.find(({ id }) => id === contactId))
+    setContact(() => contacts.favorites.find(({ id }) => id === contactId))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contactId])
 

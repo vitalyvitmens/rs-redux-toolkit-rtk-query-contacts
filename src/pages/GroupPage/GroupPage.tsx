@@ -21,7 +21,7 @@ export const GroupPage = () => {
     setGroupContacts(findGroup)
     setAllcontacts(() => {
       if (findGroup) {
-        return contacts.filter(({ id }) => findGroup.contactIds.includes(id))
+        return contacts.favorites.filter(({ id }) => findGroup.contactIds.includes(id))
       }
       return []
     })

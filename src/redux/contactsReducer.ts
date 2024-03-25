@@ -1,18 +1,27 @@
-import {
-  ADD_NEW_CONTACT_ACTION,
-  ProjectActions,
-  REMOVE_CONTACT_ACTION,
-} from './actions'
-import { contacts } from 'src/__data__'
+import { initialState, FAVORITE_CONTACTS } from './initialState'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ContactDto } from 'src/types/dto/ContactDto'
 
-export function contactsReducer(state = contacts, action: ProjectActions) {
-  switch (action.type) {
-    case ADD_NEW_CONTACT_ACTION:
-      return [...state, action.payload.contact]
-    case REMOVE_CONTACT_ACTION:
-      return state.filter((contact) => contact.id !== action.payload.id)
-    default:
-      return state
-  }
-}
+export const contactsSlice = createSlice({
+  name: 'contacts',
+  initialState,
+  reducers: {
+    addToContacts: (state, action: PayloadAction<ContactDto>) => {
+      state.favorites.push(action.payload)
+      localStorage.setItem(FAVORITE_CONTACTS, JSON.stringify(state.favorites))
+    },
+    removeFromContacts: (state, action: PayloadAction<ContactDto['id']>) => {
+      state.favorites = state.favorites.filter(
+        (contact) => contact.id !== action.payload
+      )
+      localStorage.setItem(
+        FAVORITE_CONTACTS,
+        JSON.stringify(
+          state.favorites.filter((contact) => contact.id !== action.payload)
+        )
+      )
+    },
+  },
+})
 
+export const { addToContacts, removeFromContacts } = contactsSlice.actions
