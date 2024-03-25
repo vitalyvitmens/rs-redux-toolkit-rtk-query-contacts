@@ -1,6 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ContactDto } from 'src/types/dto/ContactDto'
-import { initialState, PERSIST_LOCAL_STORAGE } from './initialState'
+
+const PERSIST_LOCAL_STORAGE = 'persist:rs-redux-toolkit-rtk-query-contacts'
+
+const initialState = {
+  favorites: JSON.parse(
+    localStorage.getItem(PERSIST_LOCAL_STORAGE) ?? '[]'
+  ) as ContactDto[],
+}
 
 export const favoritesSlice = createSlice({
   name: 'favorites',
