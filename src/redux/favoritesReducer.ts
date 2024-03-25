@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ContactDto } from 'src/types/dto/ContactDto'
-import { initialState, FAVORITE_CONTACTS } from './initialState'
+import { initialState, PERSIST_LOCAL_STORAGE } from './initialState'
 
 export const favoritesSlice = createSlice({
   name: 'favorites',
@@ -8,14 +8,17 @@ export const favoritesSlice = createSlice({
   reducers: {
     addToFavorites: (state, action: PayloadAction<ContactDto>) => {
       state.favorites.push(action.payload)
-      localStorage.setItem(FAVORITE_CONTACTS, JSON.stringify(state.favorites))
+      localStorage.setItem(
+        PERSIST_LOCAL_STORAGE,
+        JSON.stringify(state.favorites)
+      )
     },
     removeFromFavorites: (state, action: PayloadAction<ContactDto['id']>) => {
       state.favorites = state.favorites.filter(
         (contact) => contact.id !== action.payload
       )
       localStorage.setItem(
-        FAVORITE_CONTACTS,
+        PERSIST_LOCAL_STORAGE,
         JSON.stringify(
           state.favorites.filter((contact) => contact.id !== action.payload)
         )
