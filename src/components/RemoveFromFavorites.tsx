@@ -1,5 +1,5 @@
 import React from 'react'
-import { removeFromFavoritesActionCreator } from 'src/redux/actions'
+import { removeFromFavorites } from 'src/redux/favoritesReducer'
 import { useAppDispatch } from 'src/redux/hooks'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
@@ -8,7 +8,7 @@ export const RemoveFromFavorites: React.FC<{
 }> = ({ id }) => {
   const dispatch = useAppDispatch()
   return (
-    <div onClick={() => dispatch(removeFromFavoritesActionCreator(id))}>
+    <div onClick={() => dispatch(removeFromFavorites(id))}>
       <svg
         className="heart"
         aria-hidden="true"

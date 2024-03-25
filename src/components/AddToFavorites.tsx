@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { addToFavoritesActionCreator } from 'src/redux/actions'
+import { addToFavorites } from 'src/redux/favoritesReducer'
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
@@ -11,7 +11,7 @@ export const AddToFavorites: React.FC<{
 
   const favorites = useAppSelector((state) => state.favorites)
 
-  let isInFavorites = favorites.find((tr) => tr.id === contact.id)
+  let isInFavorites = favorites.favorites?.find((tr) => tr.id === contact.id)
     ? true
     : false
 
@@ -21,7 +21,7 @@ export const AddToFavorites: React.FC<{
         if (isInFavorites) {
           navigate('/favorit')
         } else {
-          dispatch(addToFavoritesActionCreator(contact))
+          dispatch(addToFavorites(contact))
         }
       }}
     >

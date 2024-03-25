@@ -15,3 +15,4 @@ export function contactsReducer(state = contacts, action: ProjectActions) {
       return state
   }
 }
+

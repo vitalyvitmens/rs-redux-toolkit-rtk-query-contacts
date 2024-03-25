@@ -7,7 +7,7 @@ export const FavoritListPage = () => {
 
   return (
     <Row xxl={4} className="g-4">
-      {contacts.map((contact) => (
+      {contacts.favorites.map((contact) => (
         <Col key={contact.id}>
           <ContactCard contact={contact} withLink />
         </Col>
