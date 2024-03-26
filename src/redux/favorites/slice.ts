@@ -33,5 +33,3 @@ export const favoritesSlice = createSlice({
     },
   },
 })
-
-export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions

@@ -10,7 +10,6 @@ import {
   REGISTER,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { favoritesSlice } from './favorites/favoritesReducer'
 import { logActionMiddleware } from './logActionMiddleware'
 import { configureStore } from '@reduxjs/toolkit'
 import contactsReducer, {
@@ -18,13 +17,14 @@ import contactsReducer, {
   contactsReducerPath,
 } from './contacts'
 import groupsReducer, { groupsMiddleware, groupsReducerPath } from './groups'
+import favoritesReducer from './favorites'
 
 const rootReducer = persistReducer(
   { key: 'rs-redux-toolkit-rtk-query-contacts', storage: storage },
   combineReducers({
     [contactsReducerPath]: contactsReducer,
     [groupsReducerPath]: groupsReducer,
-    favorites: favoritesSlice.reducer,
+    favorites: favoritesReducer,
   })
 )
 

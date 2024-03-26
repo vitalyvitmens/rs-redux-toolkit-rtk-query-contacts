@@ -1,14 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
-
-const initialState: Record<GroupContactsDto['id'], string> = {}
-
-export const groupContactsSlice = createSlice({
-  name: 'groupContacts',
-  initialState,
-  reducers: {},
-})
 
 export const groupContactsApiSlice = createApi({
   reducerPath: 'groupContactsApi',

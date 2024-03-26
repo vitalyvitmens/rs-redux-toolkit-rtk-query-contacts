@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { addToFavorites } from 'src/redux/favorites/favoritesReducer'
+import { addToFavorites } from 'src/redux/favorites'
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
