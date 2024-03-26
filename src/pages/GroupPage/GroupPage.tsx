@@ -10,10 +10,9 @@ import { Col, Row } from 'react-bootstrap'
 import { useGetContactsQuery } from 'src/redux/contactsReducer'
 
 export const GroupPage = () => {
-  const { contactId } = useParams<{ contactId: string }>()
-  const [allContacts, setAllContacts] = useState<ContactDto>()
+  const [contacts, setContacts] = useState<ContactDto[]>([])
 
-  const { data: contacts } = useGetContactsQuery()
+  const { data } = useGetContactsQuery()
   const { groupId } = useParams<{ groupId: string }>()
   // const [allContacts, setAllcontacts] = useState<ContactDto[]>([])
 
@@ -28,9 +27,8 @@ export const GroupPage = () => {
   }, [groupId])
 
   useEffect(() => {
-    setAllContacts(() => contacts?.find(({ id }) => id === contactId))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contactId])
+    data && setContacts(data)
+  }, [data])
 
   if (!contacts) {
     return <div>Loading...</div>
@@ -49,9 +47,9 @@ export const GroupPage = () => {
           </Col>
           <Col>
             <Row xxl={4} className="g-4">
-              {contacts?.map((c) => (
-                <Col key={c.id}>
-                  <ContactCard contact={c} withLink />
+              {contacts?.map((contact) => (
+                <Col key={contact.id}>
+                  <ContactCard contact={contact} withLink />
                 </Col>
               ))}
             </Row>
