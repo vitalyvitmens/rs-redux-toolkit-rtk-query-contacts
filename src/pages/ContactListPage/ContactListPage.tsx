@@ -22,26 +22,22 @@ export const ContactListPage = () => {
   }, [dataGroupContacts])
 
   const onSubmit = (fv: Partial<FilterFormValues>) => {
-    let findContacts = contacts
-
-    if (fv.name) {
-      const fvName = fv.name.toLowerCase()
-      findContacts = findContacts.filter(
-        ({ name }) => name.toLowerCase().indexOf(fvName) > -1
-      )
-    }
-
-    if (fv.groupId) {
-      const groupContacts = dataGroupContacts?.find(
-        ({ id }) => id === fv.groupId
-      )
-
-      if (groupContacts) {
-        findContacts = findContacts.filter(({ id }) =>
-          groupContacts.contactIds.includes(id)
-        )
+    let findContacts = contacts.filter((c) => {
+      if (fv.name && !c.name.toLowerCase().includes(fv.name.toLowerCase())) {
+        return false
       }
-    }
+
+      if (fv.groupId) {
+        const groupContacts = dataGroupContacts?.find(
+          (gc) => gc.id === fv.groupId
+        )
+        if (groupContacts && !groupContacts.contactIds.includes(c.id)) {
+          return false
+        }
+      }
+
+      return true
+    })
 
     setContacts(findContacts)
   }
