@@ -16,9 +16,7 @@ const rootReducer = persistReducer(
   { key: 'rs-redux-toolkit-rtk-query-contacts', storage: storage },
   combineReducers({
     [contactsApiSlice.reducerPath]: contactsApiSlice.reducer,
-    contacts: contactsSlice.reducer,
     [groupContactsApiSlice.reducerPath]: groupContactsApiSlice.reducer,
-    groups: groupContactsSlice.reducer,
     favorites: favoritesSlice.reducer,
   })
 )
