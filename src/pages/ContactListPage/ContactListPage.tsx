@@ -1,15 +1,24 @@
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useAppSelector } from 'src/redux/hooks'
 import { ContactCard } from 'src/components/ContactCard'
 import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { Col, Row } from 'react-bootstrap'
+import { useGetContactsQuery } from 'src/redux/contactsReducer'
 
 export const ContactListPage = () => {
-  const contactsData: ContactDto[] = useAppSelector((state) => state.contacts)
+  const [contacts, setContacts] = useState<ContactDto[]>([])
   const groupsData: GroupContactsDto[] = useAppSelector((state) => state.groups)
-  const [contacts, setContacts] = useState<ContactDto[]>(contactsData)
+  const { data } = useGetContactsQuery()
+
+  useEffect(() => {
+    data && setContacts(data)
+  }, [data])
+  // useEffect(() => {
+  //   groups && setGroupsData(groups)
+  // }, [groups])
+
   const onSubmit = (fv: Partial<FilterFormValues>) => {
     let findContacts = contacts
 
