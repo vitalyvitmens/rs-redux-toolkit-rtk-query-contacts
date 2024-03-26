@@ -1,12 +1,11 @@
-import { AnyAction, Middleware } from 'redux'
+import { Middleware } from '@reduxjs/toolkit'
 import { RootState } from './store'
 import { logAction } from '../metrics/logAction'
 
-export const logActionMiddleware: Middleware<{}, RootState> = (storeAPI) => {
-  return function wrapDispatch(next) {
-    return function handleAction(action: AnyAction) {
+export const logActionMiddleware: Middleware<{}, RootState> =
+  (storeAPI) => (next) => (action) => {
+    if (typeof action === 'object' && action !== null && 'type' in action) {
       logAction(action)
-      next(action)
     }
+    return next(action)
   }
-}

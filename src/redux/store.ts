@@ -1,12 +1,19 @@
 import { combineReducers } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import { persistReducer, persistStore } from 'redux-persist'
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { contactsApiSlice } from './contactsReducer'
 import { groupContactsApiSlice } from './groupContactsReducer'
 import { favoritesSlice } from './favoritesReducer'
 import { logActionMiddleware } from './logActionMiddleware'
-import { composeWithDevTools } from '@redux-devtools/extension'
 import { configureStore } from '@reduxjs/toolkit'
 
 const rootReducer = persistReducer(
@@ -20,15 +27,17 @@ const rootReducer = persistReducer(
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
     }).concat([
       contactsApiSlice.middleware,
       groupContactsApiSlice.middleware,
-      // thunkMiddleware,
-      // logActionMiddleware,
-    ]),
+      logActionMiddleware,
+    ])
+  },
 })
 
 export const persistor = persistStore(store)
