@@ -1,12 +1,12 @@
 import { useAppSelector } from 'src/redux/hooks'
 import { ContactCard } from 'src/components/ContactCard'
-import { Col, Row, Spinner } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 
 export const FavoritListPage = () => {
   const favorites = useAppSelector((state) => state.favorites?.favorites)
 
   if (!favorites) {
-    return <Spinner animation="border" />
+    return null
   }
 
   return (
