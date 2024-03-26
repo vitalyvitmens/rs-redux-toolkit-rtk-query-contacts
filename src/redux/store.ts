@@ -1,12 +1,9 @@
-import { combineReducers, applyMiddleware } from 'redux'
+import { combineReducers } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { contactsApiSlice, contactsSlice } from './contactsReducer'
-import {
-  groupContactsApiSlice,
-  groupContactsSlice,
-} from './groupContactsReducer'
+import { contactsApiSlice } from './contactsReducer'
+import { groupContactsApiSlice } from './groupContactsReducer'
 import { favoritesSlice } from './favoritesReducer'
 import { logActionMiddleware } from './logActionMiddleware'
 import { composeWithDevTools } from '@redux-devtools/extension'
