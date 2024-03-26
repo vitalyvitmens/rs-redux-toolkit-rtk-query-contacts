@@ -17,11 +17,11 @@ export const groupContactsApiSlice = createApi({
   }),
   endpoints(builder) {
     return {
-      getGroupsContacts: builder.query<GroupContactsDto[], void>({
+      getGroupContacts: builder.query<GroupContactsDto[], void>({
         query: () => '503/h/03b7cef5194e433422491a8f22413a18.json',
       }),
     }
   },
 })
 
-export const { useGetGroupsContactsQuery } = groupContactsApiSlice
+export const { useGetGroupContactsQuery } = groupContactsApiSlice

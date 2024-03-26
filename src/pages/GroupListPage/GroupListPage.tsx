@@ -1,9 +1,9 @@
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
 import { Col, Row, Spinner } from 'react-bootstrap'
-import { useGetGroupsContactsQuery } from 'src/redux/groupContactsReducer'
+import { useGetGroupContactsQuery } from 'src/redux/groupContactsReducer'
 
 export const GroupListPage = () => {
-  const { data: groups, isLoading } = useGetGroupsContactsQuery()
+  const { data: groups, isLoading } = useGetGroupContactsQuery()
 
   if (isLoading) {
     return <Spinner animation="border" />

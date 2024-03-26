@@ -3,61 +3,62 @@ import { ContactCard } from 'src/components/ContactCard'
 import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Row, Spinner } from 'react-bootstrap'
 import { useGetContactsQuery } from 'src/redux/contactsReducer'
-import { useGetGroupsContactsQuery } from 'src/redux/groupContactsReducer'
+import { useGetGroupContactsQuery } from 'src/redux/groupContactsReducer'
 
 export const ContactListPage = () => {
-  const [contacts, setContacts] = useState<ContactDto[]>([])
-  const [groupContacts, setGroupContacts] = useState<GroupContactsDto[]>([])
-  const { data: dataContacts } = useGetContactsQuery()
-  const { data: dataGroupContacts } = useGetGroupsContactsQuery()
+  const [filteredContacts, setFilteredContacts] = useState<ContactDto[]>([])
+  const [groups, setGroups] = useState<GroupContactsDto[]>()
+  const { data: contacts, isLoading } = useGetContactsQuery()
+  const { data: groupsData, isLoading: isLoadingGroups } =
+    useGetGroupContactsQuery()
 
   useEffect(() => {
-    dataContacts && setContacts(dataContacts)
-  }, [dataContacts])
+    if (contacts && groupsData) {
+      setFilteredContacts(contacts)
+      setGroups(groupsData)
+    }
+  }, [contacts, groupsData])
 
-  useEffect(() => {
-    dataGroupContacts && setGroupContacts(dataGroupContacts)
-  }, [dataGroupContacts])
-
-  const onSubmit = (fv: Partial<FilterFormValues>) => {
-    let findContacts = contacts.filter((c) => {
+  const onFilter = (fv: Partial<FilterFormValues>) => {
+    let filtered = filteredContacts.filter((c) => {
       if (fv.name && !c.name.toLowerCase().includes(fv.name.toLowerCase())) {
         return false
       }
 
-      if (fv.groupId) {
-        const groupContacts = dataGroupContacts?.find(
-          (gc) => gc.id === fv.groupId
-        )
-        if (groupContacts && !groupContacts.contactIds.includes(c.id)) {
-          return false
-        }
+      if (
+        fv.groupId &&
+        !groups?.find((g) => g.id === fv.groupId)?.contactIds.includes(c.id)
+      ) {
+        return false
       }
 
       return true
     })
 
-    setContacts(findContacts)
+    setFilteredContacts(filtered)
   }
+
+  if (isLoading || isLoadingGroups) return <Spinner animation="border" />
+  if (!groups || !filteredContacts) return null
 
   return (
     <Row xxl={1}>
       <Col className="mb-3">
-        <Suspense>
+        <Suspense fallback={<Spinner animation="border" />}>
           <FilterForm
-            groupContactsList={groupContacts}
+            groupContactsList={groups}
+            onSubmit={onFilter}
             initialValues={{}}
-            onSubmit={onSubmit}
           />
         </Suspense>
       </Col>
       <Col>
         <Row xxl={4} className="g-4">
-          {contacts.map((contact) => (
+          {filteredContacts.map((contact) => (
             <Col key={contact.id}>
-              <Suspense>
+              <Suspense fallback={<Spinner animation="border" />}>
                 <ContactCard contact={contact} withLink />
               </Suspense>
             </Col>
