@@ -10,17 +10,20 @@ import {
   REGISTER,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { contactsApiSlice } from './contactsReducer'
-import { groupContactsApiSlice } from './groupContactsReducer'
-import { favoritesSlice } from './favoritesReducer'
+import { favoritesSlice } from './favorites/favoritesReducer'
 import { logActionMiddleware } from './logActionMiddleware'
 import { configureStore } from '@reduxjs/toolkit'
+import contactsReducer, {
+  contactsMiddleware,
+  contactsReducerPath,
+} from './contacts'
+import groupsReducer, { groupsMiddleware, groupsReducerPath } from './groups'
 
 const rootReducer = persistReducer(
   { key: 'rs-redux-toolkit-rtk-query-contacts', storage: storage },
   combineReducers({
-    [contactsApiSlice.reducerPath]: contactsApiSlice.reducer,
-    [groupContactsApiSlice.reducerPath]: groupContactsApiSlice.reducer,
+    [contactsReducerPath]: contactsReducer,
+    [groupsReducerPath]: groupsReducer,
     favorites: favoritesSlice.reducer,
   })
 )
@@ -32,11 +35,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([
-      contactsApiSlice.middleware,
-      groupContactsApiSlice.middleware,
-      logActionMiddleware,
-    ])
+    }).concat([contactsMiddleware, groupsMiddleware, logActionMiddleware])
   },
 })
 

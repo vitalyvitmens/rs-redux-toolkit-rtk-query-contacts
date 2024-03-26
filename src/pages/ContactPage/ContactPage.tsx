@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { ContactCard } from 'src/components/ContactCard'
 import { Col, Row, Spinner } from 'react-bootstrap'
-import { useGetContactsQuery } from 'src/redux/contactsReducer'
+import { useGetContactsQuery } from 'src/redux/contacts'
 
 export const ContactPage: FC = () => {
   const { contactId } = useParams<{ contactId: string }>()

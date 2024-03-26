@@ -1,6 +1,6 @@
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
 import { Col, Row, Spinner } from 'react-bootstrap'
-import { useGetGroupContactsQuery } from 'src/redux/groupContactsReducer'
+import { useGetGroupContactsQuery } from 'src/redux/groups'
 
 export const GroupListPage = () => {
   const { data: groups, isLoading } = useGetGroupContactsQuery()

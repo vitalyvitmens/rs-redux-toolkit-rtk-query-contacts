@@ -4,8 +4,8 @@ import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { Col, Row, Spinner } from 'react-bootstrap'
-import { useGetContactsQuery } from 'src/redux/contactsReducer'
-import { useGetGroupContactsQuery } from 'src/redux/groupContactsReducer'
+import { useGetContactsQuery } from 'src/redux/contacts'
+import { useGetGroupContactsQuery } from 'src/redux/groups'
 
 export const ContactListPage = () => {
   const [filteredContacts, setFilteredContacts] = useState<ContactDto[]>([])

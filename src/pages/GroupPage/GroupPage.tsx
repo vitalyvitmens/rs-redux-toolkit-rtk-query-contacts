@@ -4,8 +4,8 @@ import { ContactCard } from 'src/components/ContactCard'
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { Col, Row, Spinner } from 'react-bootstrap'
-import { useGetContactsQuery } from 'src/redux/contactsReducer'
-import { useGetGroupContactsQuery } from 'src/redux/groupContactsReducer'
+import { useGetContactsQuery } from 'src/redux/contacts'
+import { useGetGroupContactsQuery } from 'src/redux/groups'
 
 export const GroupPage = () => {
   const { groupId } = useParams<{ groupId: string }>()

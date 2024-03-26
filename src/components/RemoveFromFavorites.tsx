@@ -1,5 +1,5 @@
 import React from 'react'
-import { removeFromFavorites } from 'src/redux/favoritesReducer'
+import { removeFromFavorites } from 'src/redux/favorites/favoritesReducer'
 import { useAppDispatch } from 'src/redux/hooks'
 import { ContactDto } from 'src/types/dto/ContactDto'
 

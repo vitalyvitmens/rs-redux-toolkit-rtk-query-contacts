@@ -1,0 +1,1 @@
+import { favoritesSlice } from './favoritesReducer'

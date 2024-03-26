@@ -23,5 +23,3 @@ export const groupContactsApiSlice = createApi({
     }
   },
 })
-
-export const { useGetGroupContactsQuery } = groupContactsApiSlice
