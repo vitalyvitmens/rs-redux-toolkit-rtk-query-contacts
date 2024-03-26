@@ -1,7 +1,7 @@
 import { favoritesSlice } from './slice'
 
-const favoritesReducer = favoritesSlice.reducer
+const favoritesSliceReducer = favoritesSlice.reducer
 
-export default favoritesReducer
+export default favoritesSliceReducer
 
 export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions

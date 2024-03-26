@@ -17,14 +17,14 @@ import contactsReducer, {
   contactsReducerPath,
 } from './contacts'
 import groupsReducer, { groupsMiddleware, groupsReducerPath } from './groups'
-import favoritesReducer from './favorites'
+import favoritesSliceReducer from './favorites'
 
 const rootReducer = persistReducer(
   { key: 'rs-redux-toolkit-rtk-query-contacts', storage: storage },
   combineReducers({
     [contactsReducerPath]: contactsReducer,
     [groupsReducerPath]: groupsReducer,
-    favorites: favoritesReducer,
+    favorites: favoritesSliceReducer,
   })
 )
 
