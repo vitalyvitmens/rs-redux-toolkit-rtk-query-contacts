@@ -2,7 +2,7 @@ import { combineReducers, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { contactsSlice } from './contactsReducer'
+import { contactsApiSlice, contactsSlice } from './contactsReducer'
 import { groupContactsSlice } from './groupContactsReducer'
 import { favoritesSlice } from './favoritesReducer'
 import { logActionMiddleware } from './logActionMiddleware'
@@ -12,6 +12,7 @@ import { configureStore } from '@reduxjs/toolkit'
 const rootReducer = persistReducer(
   { key: 'rs-redux-toolkit-rtk-query-contacts', storage: storage },
   combineReducers({
+    [contactsApiSlice.reducerPath]: contactsApiSlice.reducer,
     contacts: contactsSlice.reducer,
     groups: groupContactsSlice.reducer,
     favorites: favoritesSlice.reducer,
@@ -24,6 +25,7 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }).concat([
+      contactsApiSlice.middleware,
       // thunkMiddleware,
       // logActionMiddleware,
     ]),
