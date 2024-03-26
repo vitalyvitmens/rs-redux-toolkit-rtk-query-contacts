@@ -1,23 +1,25 @@
 import { Suspense, useEffect, useState } from 'react'
-import { useAppSelector } from 'src/redux/hooks'
 import { ContactCard } from 'src/components/ContactCard'
 import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { Col, Row } from 'react-bootstrap'
 import { useGetContactsQuery } from 'src/redux/contactsReducer'
+import { useGetGroupsContactsQuery } from 'src/redux/groupContactsReducer'
 
 export const ContactListPage = () => {
   const [contacts, setContacts] = useState<ContactDto[]>([])
-  const groupsData: GroupContactsDto[] = useAppSelector((state) => state.groups)
-  const { data } = useGetContactsQuery()
+  const [groupContacts, setGroupContacts] = useState<GroupContactsDto[]>([])
+  const { data: dataContacts } = useGetContactsQuery()
+  const { data: dataGroupContacts } = useGetGroupsContactsQuery()
 
   useEffect(() => {
-    data && setContacts(data)
-  }, [data])
-  // useEffect(() => {
-  //   groups && setGroupsData(groups)
-  // }, [groups])
+    dataContacts && setContacts(dataContacts)
+  }, [dataContacts])
+
+  useEffect(() => {
+    dataGroupContacts && setGroupContacts(dataGroupContacts)
+  }, [dataGroupContacts])
 
   const onSubmit = (fv: Partial<FilterFormValues>) => {
     let findContacts = contacts
@@ -30,7 +32,9 @@ export const ContactListPage = () => {
     }
 
     if (fv.groupId) {
-      const groupContacts = groupsData.find(({ id }) => id === fv.groupId)
+      const groupContacts = dataGroupContacts?.find(
+        ({ id }) => id === fv.groupId
+      )
 
       if (groupContacts) {
         findContacts = findContacts.filter(({ id }) =>
@@ -47,7 +51,7 @@ export const ContactListPage = () => {
       <Col className="mb-3">
         <Suspense>
           <FilterForm
-            groupContactsList={groupsData}
+            groupContactsList={groupContacts}
             initialValues={{}}
             onSubmit={onSubmit}
           />

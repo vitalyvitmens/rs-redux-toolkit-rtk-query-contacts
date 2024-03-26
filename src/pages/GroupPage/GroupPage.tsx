@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useAppSelector } from 'src/redux/hooks'
 import { Empty } from 'src/components/Empty'
 import { ContactCard } from 'src/components/ContactCard'
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
@@ -8,6 +7,7 @@ import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { Col, Row } from 'react-bootstrap'
 import { useGetContactsQuery } from 'src/redux/contactsReducer'
+import { useGetGroupsContactsQuery } from 'src/redux/groupContactsReducer'
 
 export const GroupPage = () => {
   const [contacts, setContacts] = useState<ContactDto[]>([])
@@ -16,12 +16,12 @@ export const GroupPage = () => {
   const { groupId } = useParams<{ groupId: string }>()
   // const [allContacts, setAllcontacts] = useState<ContactDto[]>([])
 
-  const { groups } = useAppSelector((state) => state)
+  const { data: groups } = useGetGroupsContactsQuery()
 
   const [groupContacts, setGroupContacts] = useState<GroupContactsDto>()
 
   useEffect(() => {
-    const findGroup = groups.find(({ id }) => id === groupId)
+    const findGroup = groups?.find(({ id }) => id === groupId)
     setGroupContacts(findGroup)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupId])

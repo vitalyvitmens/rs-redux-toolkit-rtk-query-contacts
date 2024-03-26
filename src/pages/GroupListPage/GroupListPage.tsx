@@ -1,14 +1,13 @@
-import { useAppSelector } from 'src/redux/hooks'
 import { GroupContactsCard } from 'src/components/GroupContactsCard'
 import { Col, Row } from 'react-bootstrap'
+import { useGetGroupsContactsQuery } from 'src/redux/groupContactsReducer'
 
 export const GroupListPage = () => {
-  const groups = useAppSelector((state) => state.groups)
-  console.log(groups)
+  const { data: groups } = useGetGroupsContactsQuery()
 
   return (
     <Row xxl={4}>
-      {groups.map((groupContacts) => (
+      {groups?.map((groupContacts) => (
         <Col key={groupContacts.id}>
           <GroupContactsCard groupContacts={groupContacts} withLink />
         </Col>
