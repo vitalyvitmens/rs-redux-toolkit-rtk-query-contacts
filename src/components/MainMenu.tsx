@@ -1,41 +1,52 @@
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { RoutePaths } from 'src/routes/RoutePaths'
+import { Colors } from 'src/constants/colors'
+import { Container, Nav, Navbar, NavItem } from 'react-bootstrap'
 
 export const MainMenu = () => {
   return (
-    <Navbar bg="bisque" expand="lg">
+    <Navbar bg={Colors.bisque} expand="lg">
       <Container>
-        <Navbar.Brand href="/">
-          <h1
+        <Navbar.Brand>
+          <Link
+            to={RoutePaths.Home}
             style={{
-              color: '#0000FF',
+              color: Colors.blue,
               fontWeight: '700',
-              textShadow: '-2px 1px 1px #fff',
+              textShadow: `-2px 1px 1px ${Colors.pureWhite}`,
+              textDecoration: 'none',
             }}
           >
-            Книга контактов
-          </h1>
+            <h1>Книга контактов</h1>
+          </Link>
         </Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link
-            style={{
-              color: '#FF0000',
-              fontWeight: '700',
-              textShadow: '1px 1px 1px black',
-            }}
-            href="/groups"
-          >
-            Группы
-          </Nav.Link>
-          <Nav.Link
-            style={{
-              color: '#FF0000',
-              fontWeight: '700',
-              textShadow: '1px 1px 1px black',
-            }}
-            href="/favorit"
-          >
-            Избранное
-          </Nav.Link>
+          <NavItem>
+            <Link
+              to={RoutePaths.Groups}
+              style={{
+                color: Colors.red,
+                fontWeight: '700',
+                textShadow: `1px 1px 1px ${Colors.black}`,
+                textDecoration: 'none',
+              }}
+            >
+              Группы
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link
+              to={RoutePaths.Favorit}
+              style={{
+                color: Colors.red,
+                fontWeight: '700',
+                textShadow: `1px 1px 1px ${Colors.black}`,
+                textDecoration: 'none',
+              }}
+            >
+              Избранное
+            </Link>
+          </NavItem>
         </Nav>
       </Container>
     </Navbar>

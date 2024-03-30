@@ -1,6 +1,8 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
+import { RoutePaths } from 'src/routes/RoutePaths'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
+import { Colors } from 'src/constants/colors'
 import { Card } from 'react-bootstrap'
 import './components.css'
 
@@ -19,29 +21,38 @@ export const GroupContactsCard = memo<GroupContactsCardProps>(
         key={id}
         style={{
           marginBottom: '1.5rem',
-          border: '1px solid bisque',
-          background: 'bisque',
-          boxShadow: '-4px 3px 8px black',
+          border: `1px solid Colors.bisque`,
+          background: Colors.bisque,
+          boxShadow: `-4px 3px 8px ${Colors.black}`,
         }}
       >
         <Card.Header
           style={{
             fontWeight: '700',
-            boxShadow: '0 1px 5px black',
-            textShadow: '1px 1px 1px black',
+            boxShadow: `0 1px 5px ${Colors.black}`,
+            textShadow: `1px 1px 1px ${Colors.black}`,
           }}
         >
-          {withLink ? <Link to={`/groups/${id}`}>{name}</Link> : name}
+          {withLink ? (
+            <Link to={`${RoutePaths.Groups}/${id}`}>{name}</Link>
+          ) : (
+            name
+          )}
         </Card.Header>
-        <Card.Body style={{ color: 'green', fontWeight: '600' }}>
+        <Card.Body style={{ color: Colors.green, fontWeight: '600' }}>
           <div className="row-truncate">{description}</div>
         </Card.Body>
         <Card.Img
-          style={{ boxShadow: '0 -2px 5px black' }}
+          style={{ boxShadow: `0 -2px 5px ${Colors.black}` }}
           variant="top"
           src={photo}
         />
-        <Card.Footer style={{ color: 'red', textShadow: '-1px 1px 1px black' }}>
+        <Card.Footer
+          style={{
+            color: Colors.red,
+            textShadow: `-1px 1px 1px ${Colors.black}`,
+          }}
+        >
           Contacts: {contactIds.length}
         </Card.Footer>
       </Card>

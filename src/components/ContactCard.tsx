@@ -1,8 +1,10 @@
 import { memo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { RoutePaths } from 'src/routes/RoutePaths'
 import { AddToFavorites } from './AddToFavorites'
 import { RemoveFromFavorites } from './RemoveFromFavorites'
 import { ContactDto } from 'src/types/dto/ContactDto'
+import { Colors } from 'src/constants/colors'
 import { Card, ListGroup } from 'react-bootstrap'
 import './components.css'
 
@@ -19,13 +21,13 @@ export const ContactCard = memo<ContactCardProps>(({ contact, withLink }) => {
     <Card
       key={id}
       style={{
-        textShadow: '1px 1px 1px black',
-        border: '1px solid bisque',
-        boxShadow: '0 -2px 5px black',
+        textShadow: `1px 1px 1px ${Colors.black}`,
+        border: `1px solid Colors.bisque`,
+        boxShadow: `0 -2px 5px ${Colors.black}`,
       }}
     >
       <Card.Img variant="top" src={photo} />
-      <Card.Body style={{ borderRadius: '5px', background: 'bisque' }}>
+      <Card.Body style={{ borderRadius: '5px', background: Colors.bisque }}>
         <Card.Body
           style={{
             display: 'flex',
@@ -34,16 +36,16 @@ export const ContactCard = memo<ContactCardProps>(({ contact, withLink }) => {
         >
           <Card.Title
             style={{
-              color: 'blue',
+              color: Colors.blue,
             }}
           >
             {withLink ? (
               <Link
                 style={{
                   fontWeight: '700',
-                  textShadow: '1px 1px 1px black',
+                  textShadow: `1px 1px 1px ${Colors.black}`,
                 }}
-                to={`/contact/${id}`}
+                to={`${RoutePaths.Contacts}/${id}`}
               >
                 <div className="text-truncate">{name}</div>
               </Link>
@@ -51,7 +53,7 @@ export const ContactCard = memo<ContactCardProps>(({ contact, withLink }) => {
               name
             )}
           </Card.Title>
-          {location.pathname === '/favorit' ? (
+          {location.pathname === RoutePaths.Favorit ? (
             <RemoveFromFavorites id={contact.id} />
           ) : (
             <AddToFavorites contact={contact} />
@@ -60,7 +62,10 @@ export const ContactCard = memo<ContactCardProps>(({ contact, withLink }) => {
         <Card.Body>
           <ListGroup>
             <ListGroup.Item
-              style={{ background: 'bisque', boxShadow: '0 -2px 5px black' }}
+              style={{
+                background: Colors.bisque,
+                boxShadow: `0 -2px 5px ${Colors.black}`,
+              }}
             >
               <Link to={`tel:${phone}`} target="_blank">
                 {phone}
@@ -68,20 +73,20 @@ export const ContactCard = memo<ContactCardProps>(({ contact, withLink }) => {
             </ListGroup.Item>
             <ListGroup.Item
               style={{
-                color: 'green',
+                color: Colors.green,
                 fontWeight: '600',
-                background: 'bisque',
-                boxShadow: '0 -2px 5px black',
+                background: Colors.bisque,
+                boxShadow: `0 -2px 5px ${Colors.black}`,
               }}
             >
               {birthday}
             </ListGroup.Item>
             <ListGroup.Item
               style={{
-                color: 'red',
-                textShadow: '-1px 1px 1px black',
-                background: 'bisque',
-                boxShadow: '0 -2px 5px black',
+                color: Colors.red,
+                textShadow: `-1px 1px 1px ${Colors.black}`,
+                background: Colors.bisque,
+                boxShadow: `0 -2px 5px ${Colors.black}`,
               }}
             >
               {address}

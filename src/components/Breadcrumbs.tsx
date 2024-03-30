@@ -1,5 +1,7 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
+import { RoutePaths } from 'src/routes/RoutePaths'
+import { Colors } from 'src/constants/colors'
 import { Col, ListGroup, Row } from 'react-bootstrap'
 
 interface BreadcrumbsProps {
@@ -13,13 +15,13 @@ export const Breadcrumbs = memo<BreadcrumbsProps>(({ pathNames }) => {
         <ListGroup horizontal>
           <ListGroup.Item
             style={{
-              boxShadow: '0 2px 5px black',
-              background: 'bisque',
+              boxShadow: `0 2px 5px ${Colors.black}`,
+              background: Colors.bisque,
               fontWeight: '700',
-              textShadow: '1px 1px 1px black',
+              textShadow: `1px 1px 1px ${Colors.black}`,
             }}
           >
-            <Link to={'/'}>Home</Link>{' '}
+            <Link to={RoutePaths.Home}>Home</Link>{' '}
           </ListGroup.Item>
           {pathNames.map((name, index) => {
             const routeTo = `/${pathNames.slice(0, index + 1).join('/')}`
@@ -31,11 +33,11 @@ export const Breadcrumbs = memo<BreadcrumbsProps>(({ pathNames }) => {
               <ListGroup.Item
                 key={routeTo}
                 style={{
-                  boxShadow: '0 2px 5px black',
-                  background: 'bisque',
-                  color: 'green',
+                  boxShadow: `0 2px 5px ${Colors.black}`,
+                  background: Colors.bisque,
+                  color: Colors.green,
                   fontWeight: '600',
-                  textShadow: '1px 1px 1px black',
+                  textShadow: `1px 1px 1px ${Colors.black}`,
                 }}
               >
                 {isLast ? (

@@ -2,6 +2,7 @@ import { memo, Suspense } from 'react'
 import { Formik } from 'formik'
 import { FormikConfig } from 'formik/dist/types'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
+import { Colors } from 'src/constants/colors'
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
 
 export interface FilterFormValues {
@@ -25,12 +26,12 @@ export const FilterForm = memo<FilterFormProps>(
                   <InputGroup className="mb-3">
                     <Form.Control
                       style={{
-                        boxShadow: '0 2px 5px black',
-                        background: 'bisque',
-                        color: 'green',
+                        boxShadow: `0 2px 5px ${Colors.black}`,
+                        background: Colors.bisque,
+                        color: Colors.green,
                         fontWeight: '600',
                         fontSize: '1.2rem',
-                        textShadow: '1px 1px 1px black',
+                        textShadow: `1px 1px 1px ${Colors.black}`,
                       }}
                       id={'name'}
                       name={'name'}
@@ -45,12 +46,12 @@ export const FilterForm = memo<FilterFormProps>(
               <Col>
                 <Form.Select
                   style={{
-                    boxShadow: '0 2px 5px black',
-                    background: 'bisque',
-                    color: 'green',
+                    boxShadow: `0 2px 5px ${Colors.black}`,
+                    background: Colors.bisque,
+                    color: Colors.green,
                     fontWeight: '600',
                     fontSize: '1.2rem',
-                    textShadow: '1px 1px 1px black',
+                    textShadow: `1px 1px 1px ${Colors.black}`,
                   }}
                   id={'groupId'}
                   name={'groupId'}

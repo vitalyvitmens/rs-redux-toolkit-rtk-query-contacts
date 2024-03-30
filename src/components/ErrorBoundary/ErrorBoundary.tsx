@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react'
+import { Colors } from 'src/constants/colors'
 import { Card } from 'react-bootstrap'
 
 interface ErrorBoundaryState {
@@ -38,7 +39,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
         <Card style={{ margin: 'auto', paddingTop: '25%' }}>
           <Card.Title
             style={{
-              color: '#FF0000',
+              color: Colors.red,
               fontSize: '5rem',
               fontWeight: '800',
             }}

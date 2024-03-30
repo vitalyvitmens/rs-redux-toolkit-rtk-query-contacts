@@ -3,6 +3,7 @@ export const Colors = {
   success: '#008000',
   black: '#000000',
   white: '#fafafa',
+  pureWhite: '#fff', 
   yellow: '#FFFF00',
   green: '#008000',
   tan: '#FFD97F',
