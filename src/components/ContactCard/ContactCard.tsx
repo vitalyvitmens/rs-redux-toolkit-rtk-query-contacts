@@ -1,12 +1,12 @@
 import { memo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { RoutePaths } from 'src/routes/RoutePaths'
-import { AddToFavorites } from './AddToFavorites'
-import { RemoveFromFavorites } from './RemoveFromFavorites'
+import { AddToFavorites } from '../AddToFavorites/AddToFavorites'
+import { RemoveFromFavorites } from '../RemoveFromFavorites/RemoveFromFavorites'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { Colors } from 'src/constants/colors'
 import { Card, ListGroup } from 'react-bootstrap'
-import './components.css'
+import '../components.css'
 
 interface ContactCardProps {
   contact: ContactDto

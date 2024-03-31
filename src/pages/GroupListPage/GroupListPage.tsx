@@ -1,4 +1,4 @@
-import { GroupContactsCard } from 'src/components/GroupContactsCard'
+import { GroupContactsCard } from 'src/components/GroupContactsCard/GroupContactsCard'
 import { Col, Row, Spinner } from 'react-bootstrap'
 import { useGetGroupContactsQuery } from 'src/redux/groups'
 

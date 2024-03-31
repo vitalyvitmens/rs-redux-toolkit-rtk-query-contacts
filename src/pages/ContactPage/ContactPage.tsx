@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
-import { ContactCard } from 'src/components/ContactCard'
+import { ContactCard } from 'src/components/ContactCard/ContactCard'
 import { Col, Row, Spinner } from 'react-bootstrap'
 import { useGetContactsQuery } from 'src/redux/contacts'
 

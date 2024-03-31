@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { Breadcrumbs } from 'src/components/Breadcrumbs'
-import { MainMenu } from 'src/components/MainMenu'
+import { Breadcrumbs } from 'src/components/Breadcrumbs/Breadcrumbs'
+import { MainMenu } from 'src/components/MainMenu/MainMenu'
 import { ComponentWithSuspense } from 'src/components/ComponentWithSuspense/ComponentWithSuspense'
 import { Col, Container, Row } from 'react-bootstrap'
 

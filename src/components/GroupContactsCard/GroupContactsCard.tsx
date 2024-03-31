@@ -4,7 +4,7 @@ import { RoutePaths } from 'src/routes/RoutePaths'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { Colors } from 'src/constants/colors'
 import { Card } from 'react-bootstrap'
-import './components.css'
+import '../components.css'
 
 interface GroupContactsCardProps {
   groupContacts: GroupContactsDto

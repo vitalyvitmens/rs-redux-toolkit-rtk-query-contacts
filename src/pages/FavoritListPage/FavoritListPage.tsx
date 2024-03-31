@@ -1,5 +1,5 @@
 import { useAppSelector } from 'src/redux/hooks'
-import { ContactCard } from 'src/components/ContactCard'
+import { ContactCard } from 'src/components/ContactCard/ContactCard'
 import { Col, Row } from 'react-bootstrap'
 
 export const FavoritListPage = () => {

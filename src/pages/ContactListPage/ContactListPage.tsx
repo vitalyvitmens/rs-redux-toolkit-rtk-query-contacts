@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useState } from 'react'
-import { ContactCard } from 'src/components/ContactCard'
-import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
+import { ContactCard } from 'src/components/ContactCard/ContactCard'
+import { FilterForm, FilterFormValues } from 'src/components/FilterForm/FilterForm'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { Col, Row, Spinner } from 'react-bootstrap'
