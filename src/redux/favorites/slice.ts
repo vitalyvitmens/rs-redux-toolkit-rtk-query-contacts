@@ -5,10 +5,14 @@ import {
 } from 'src/constants/storageKeys'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
-const initialState = {
+type FavoritesState = {
+  favorites: ContactDto[]
+}
+
+const initialState: FavoritesState = {
   favorites: JSON.parse(
     localStorage.getItem(PERSIST_STORAGE_KEY + LOCAL_STORAGE_KEY) ?? '[]'
-  ) as ContactDto[],
+  ),
 }
 
 export const favoritesSlice = createSlice({
@@ -17,20 +21,10 @@ export const favoritesSlice = createSlice({
   reducers: {
     addToFavorites: (state, action: PayloadAction<ContactDto>) => {
       state.favorites.push(action.payload)
-      localStorage.setItem(
-        PERSIST_STORAGE_KEY + LOCAL_STORAGE_KEY,
-        JSON.stringify(state.favorites)
-      )
     },
     removeFromFavorites: (state, action: PayloadAction<ContactDto['id']>) => {
       state.favorites = state.favorites.filter(
         (contact) => contact.id !== action.payload
-      )
-      localStorage.setItem(
-        PERSIST_STORAGE_KEY + LOCAL_STORAGE_KEY,
-        JSON.stringify(
-          state.favorites.filter((contact) => contact.id !== action.payload)
-        )
       )
     },
   },
