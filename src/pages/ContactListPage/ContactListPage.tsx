@@ -1,40 +1,41 @@
 import { Suspense, useEffect, useState } from 'react'
 import { ContactCard } from 'src/components/ContactCard/ContactCard'
-import { FilterForm, FilterFormValues } from 'src/components/FilterForm/FilterForm'
+import {
+  FilterForm,
+  FilterFormValues,
+} from 'src/components/FilterForm/FilterForm'
 import { ContactDto } from 'src/types/dto/ContactDto'
-import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 import { Col, Row, Spinner } from 'react-bootstrap'
 import { useGetContactsQuery } from 'src/redux/contacts'
 import { useGetGroupContactsQuery } from 'src/redux/groups'
 
 export const ContactListPage = () => {
   const [filteredContacts, setFilteredContacts] = useState<ContactDto[]>([])
-  const [groups, setGroups] = useState<GroupContactsDto[]>()
   const { data: contacts, isLoading } = useGetContactsQuery()
-  const { data: groupsData, isLoading: isLoadingGroups } =
+  const { data: groups, isLoading: isLoadingGroups } =
     useGetGroupContactsQuery()
 
   useEffect(() => {
-    if (contacts && groupsData) {
+    if (contacts) {
       setFilteredContacts(contacts)
-      setGroups(groupsData)
     }
-  }, [contacts, groupsData])
+  }, [contacts, groups])
 
   const onFilter = (fv: Partial<FilterFormValues>) => {
-    let filtered = filteredContacts.filter((c) => {
-      if (fv.name && !c.name.toLowerCase().includes(fv.name.toLowerCase())) {
-        return false
-      }
+    if (!contacts || !groups) {
+      return
+    }
 
-      if (
-        fv.groupId &&
-        !groups?.find((g) => g.id === fv.groupId)?.contactIds.includes(c.id)
-      ) {
-        return false
-      }
-
-      return true
+    const filtered = contacts.filter((contact) => {
+      const nameMatch =
+        !fv.name || contact.name.toLowerCase().includes(fv.name.toLowerCase())
+      const groupMatch =
+        !fv.groupId ||
+        groups.some(
+          (group) =>
+            group.id === fv.groupId && group.contactIds.includes(contact.id)
+        )
+      return nameMatch && groupMatch
     })
 
     setFilteredContacts(filtered)

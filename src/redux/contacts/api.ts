@@ -1,15 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import {
+  API_BASE_URL,
+  CONTACTS_API_PATH,
+  CONTACTS_URL,
+} from 'src/constants/config'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
 export const contactsApiSlice = createApi({
-  reducerPath: 'contactsApi',
+  reducerPath: CONTACTS_API_PATH,
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://fs.gcfiles.net/fileservice/file/download/a/177331/sc/',
+    baseUrl: API_BASE_URL,
   }),
   endpoints(builder) {
     return {
       getContacts: builder.query<ContactDto[], void>({
-        query: () => '190/h/560e0501fa0e19aed9ef169df6095f00.json',
+        query: () => CONTACTS_URL,
       }),
     }
   },

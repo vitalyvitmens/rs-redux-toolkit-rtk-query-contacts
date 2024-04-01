@@ -16,11 +16,12 @@ import contactsReducer, {
   contactsMiddleware,
   contactsReducerPath,
 } from './contacts'
+import { LOCAL_STORAGE_KEY } from 'src/constants/storageKeys'
 import groupsReducer, { groupsMiddleware, groupsReducerPath } from './groups'
 import favoritesSliceReducer from './favorites'
 
 const rootReducer = persistReducer(
-  { key: 'rs-redux-toolkit-rtk-query-contacts', storage: storage },
+  { key: LOCAL_STORAGE_KEY, storage: storage },
   combineReducers({
     [contactsReducerPath]: contactsReducer,
     [groupsReducerPath]: groupsReducer,
