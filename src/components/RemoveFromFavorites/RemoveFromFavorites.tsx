@@ -4,12 +4,15 @@ import { useAppDispatch } from 'src/redux/hooks'
 import { ContactDto } from 'src/types/dto/ContactDto'
 import { Colors } from 'src/constants/colors'
 
-export const RemoveFromFavorites: React.FC<{
-  id: ContactDto['id']
-}> = ({ id }) => {
+export const RemoveFromFavorites: React.FC<{ id: ContactDto['id'] }> = ({
+  id,
+}) => {
   const dispatch = useAppDispatch()
+
+  const handleClick = () => dispatch(removeFromFavorites(id))
+
   return (
-    <div onClick={() => dispatch(removeFromFavorites(id))}>
+    <div onClick={handleClick}>
       <svg
         className="heart"
         aria-hidden="true"

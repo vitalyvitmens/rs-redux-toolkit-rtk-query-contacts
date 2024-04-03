@@ -21,7 +21,7 @@ export const ContactListPage = () => {
     }
   }, [contacts, groups])
 
-  const onFilter = (fv: Partial<FilterFormValues>) => {
+  const handleFilter = (fv: Partial<FilterFormValues>) => {
     if (!contacts || !groups) {
       return
     }
@@ -50,7 +50,7 @@ export const ContactListPage = () => {
         <Suspense fallback={<Spinner animation="border" />}>
           <FilterForm
             groupContactsList={groups}
-            onSubmit={onFilter}
+            onSubmit={handleFilter}
             initialValues={{}}
           />
         </Suspense>
