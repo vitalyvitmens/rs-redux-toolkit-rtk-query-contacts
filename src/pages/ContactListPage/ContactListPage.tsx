@@ -11,9 +11,8 @@ import { useGetGroupContactsQuery } from 'src/redux/groups'
 
 export const ContactListPage = () => {
   const [filteredContacts, setFilteredContacts] = useState<ContactDto[]>([])
-  const { data: contacts, isLoading } = useGetContactsQuery()
-  const { data: groups, isLoading: isLoadingGroups } =
-    useGetGroupContactsQuery()
+  const { contacts, isLoading } = useGetContactsQuery()
+  const { groups, isLoading: isLoadingGroups } = useGetGroupContactsQuery()
 
   useEffect(() => {
     if (contacts) {
@@ -42,7 +41,7 @@ export const ContactListPage = () => {
 
     setFilteredContacts(filtered)
   }
-  
+
   if (isLoading || isLoadingGroups) return <Spinner animation="border" />
   if (!groups || !filteredContacts) return null
 

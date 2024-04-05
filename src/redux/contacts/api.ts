@@ -6,6 +6,10 @@ import {
 } from 'src/constants/config'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
+interface ContactsApiResponse {
+  contacts: ContactDto[]
+}
+
 export const contactsApiSlice = createApi({
   reducerPath: CONTACTS_API_PATH,
   baseQuery: fetchBaseQuery({
@@ -13,8 +17,11 @@ export const contactsApiSlice = createApi({
   }),
   endpoints(builder) {
     return {
-      getContacts: builder.query<ContactDto[], void>({
+      getContacts: builder.query<ContactsApiResponse, void>({
         query: () => CONTACTS_URL,
+        transformResponse: (response: ContactDto[]): ContactsApiResponse => {
+          return { contacts: response }
+        },
       }),
     }
   },

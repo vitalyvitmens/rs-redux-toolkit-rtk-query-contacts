@@ -6,6 +6,10 @@ import {
 } from 'src/constants/config'
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 
+export interface GroupsApiResponse {
+  groups: GroupContactsDto[]
+}
+
 export const groupContactsApiSlice = createApi({
   reducerPath: GROUP_CONTACTS_API_PATH,
   baseQuery: fetchBaseQuery({
@@ -13,8 +17,13 @@ export const groupContactsApiSlice = createApi({
   }),
   endpoints(builder) {
     return {
-      getGroupContacts: builder.query<GroupContactsDto[], void>({
+      getGroupContacts: builder.query<GroupsApiResponse, void>({
         query: () => GROUPS_URL,
+        transformResponse: (
+          response: GroupContactsDto[]
+        ): GroupsApiResponse => {
+          return { groups: response }
+        },
       }),
     }
   },
