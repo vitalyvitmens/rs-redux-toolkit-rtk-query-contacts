@@ -11,16 +11,14 @@ export const GroupPage = () => {
   const { groupId } = useParams<{ groupId: string }>()
   const [groupContacts, setGroupContacts] = useState<GroupContactsDto>()
   const { data: contacts, isLoading } = useGetContactsQuery()
-  const { data: groupContactsData, isLoading: isLoadingGroups } =
+  const { data: groups, isLoading: isLoadingGroups } =
     useGetGroupContactsQuery()
 
   useEffect(() => {
-    const currentGroupContacts = groupContactsData?.find(
-      ({ id }) => id === groupId
-    )
+    const currentGroupContacts = groups?.find(({ id }) => id === groupId)
 
     setGroupContacts(currentGroupContacts)
-  }, [groupId, groupContactsData])
+  }, [groupId, groups])
 
   if (isLoading || isLoadingGroups) return <Spinner animation="border" />
   if (!groupContacts || !contacts) return null
