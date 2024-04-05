@@ -59,7 +59,7 @@ export const ContactListPage = () => {
       </Col>
       <Col>
         <Row xxl={4} className="g-4">
-          {filteredContacts.map((contact) => (
+          {filteredContacts?.map((contact) => (
             <Col key={contact.id}>
               <Suspense fallback={<Spinner animation="border" />}>
                 <ContactCard contact={contact} withLink />
