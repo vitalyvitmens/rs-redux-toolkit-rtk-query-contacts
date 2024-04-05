@@ -2,6 +2,7 @@ import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { RoutePaths } from 'src/routes/RoutePaths'
 import { Colors } from 'src/constants/colors'
+import { generateBreadcrumbItems } from 'src/utils/breadcrumbs'
 import { Col, ListGroup, Row } from 'react-bootstrap'
 
 interface BreadcrumbsProps {
@@ -9,11 +10,8 @@ interface BreadcrumbsProps {
 }
 
 export const Breadcrumbs = memo<BreadcrumbsProps>(({ pathNames }) => {
-  const breadcrumbItems = pathNames.map((name, index) => {
-    const routeTo = `/${pathNames.slice(0, index + 1).join('/')}`
-    const isLast = index === pathNames.length - 1
-
-    return (
+  const breadcrumbItems = generateBreadcrumbItems(pathNames).map(
+    ({ name, routeTo, isLast }) => (
       <ListGroup.Item
         key={routeTo}
         style={{
@@ -33,7 +31,7 @@ export const Breadcrumbs = memo<BreadcrumbsProps>(({ pathNames }) => {
         )}
       </ListGroup.Item>
     )
-  })
+  )
 
   return (
     <Row>
