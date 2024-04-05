@@ -13,7 +13,9 @@ export const AddToFavorites: React.FC<{
 
   const favorites = useAppSelector((state) => state.favorites)
 
-  let isInFavorites = favorites.favorites?.find((tr) => tr.id === contact.id)
+  let isInFavorites = favorites.favorites?.find(
+    (transaction) => transaction.id === contact.id
+  )
     ? true
     : false
 
