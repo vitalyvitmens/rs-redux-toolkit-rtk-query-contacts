@@ -21,26 +21,28 @@ export const ContactListPage = () => {
     }
   }, [contacts, groups])
 
-  const handleFilter = (fv: Partial<FilterFormValues>) => {
+  const handleFilter = (filterValues: Partial<FilterFormValues>) => {
     if (!contacts || !groups) {
       return
     }
 
     const filtered = contacts.filter((contact) => {
       const nameMatch =
-        !fv.name || contact.name.toLowerCase().includes(fv.name.toLowerCase())
+        !filterValues.name ||
+        contact.name.toLowerCase().includes(filterValues.name.toLowerCase())
       const groupMatch =
-        !fv.groupId ||
+        !filterValues.groupId ||
         groups.some(
           (group) =>
-            group.id === fv.groupId && group.contactIds.includes(contact.id)
+            group.id === filterValues.groupId &&
+            group.contactIds.includes(contact.id)
         )
       return nameMatch && groupMatch
     })
 
     setFilteredContacts(filtered)
   }
-
+  
   if (isLoading || isLoadingGroups) return <Spinner animation="border" />
   if (!groups || !filteredContacts) return null
 
