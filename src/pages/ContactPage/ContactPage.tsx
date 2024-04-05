@@ -9,11 +9,8 @@ export const ContactPage: FC = () => {
   const { data: contacts, isLoading } = useGetContactsQuery()
   const contact = contacts?.find(({ id }) => id === contactId)
 
-  if (isLoading) {
-    return <Spinner animation="border" />
-  } else if (!contact) {
-    return null
-  }
+  if (isLoading) return <Spinner animation="border" />
+  if (!contact) return null
 
   return (
     <Row xxl={3}>
