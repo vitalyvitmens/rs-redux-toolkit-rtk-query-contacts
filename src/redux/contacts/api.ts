@@ -8,7 +8,7 @@ import { ContactDto } from 'src/types/dto/ContactDto'
 
 export interface ContactsApiResponse {
   contacts: ContactDto[] | undefined
-  isLoading?: boolean | undefined
+  isLoading: boolean | undefined
 }
 
 export const contactsApiSlice = createApi({
@@ -20,8 +20,8 @@ export const contactsApiSlice = createApi({
     return {
       getContacts: builder.query<ContactsApiResponse, void>({
         query: () => CONTACTS_URL,
-        transformResponse: (response: ContactDto[]): ContactsApiResponse => {
-          return { contacts: response }
+        transformResponse: (response: ContactDto[], meta): ContactsApiResponse => {
+          return { contacts: response, isLoading: meta?.response?.ok }
         },
       }),
     }

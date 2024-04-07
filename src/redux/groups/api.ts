@@ -8,7 +8,7 @@ import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 
 export interface GroupsApiResponse {
   groups: GroupContactsDto[] | undefined
-  isLoading?: boolean | undefined
+  isLoadingGroups: boolean | undefined
 }
 
 export const groupContactsApiSlice = createApi({
@@ -21,9 +21,10 @@ export const groupContactsApiSlice = createApi({
       getGroupContacts: builder.query<GroupsApiResponse, void>({
         query: () => GROUPS_URL,
         transformResponse: (
-          response: GroupContactsDto[]
+          response: GroupContactsDto[],
+          meta
         ): GroupsApiResponse => {
-          return { groups: response }
+          return { groups: response, isLoadingGroups: meta?.response?.ok }
         },
       }),
     }

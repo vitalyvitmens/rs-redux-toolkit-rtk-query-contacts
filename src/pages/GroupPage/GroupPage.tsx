@@ -19,7 +19,7 @@ export const GroupPage = () => {
   const { groups, isLoadingGroups } = useGetGroupContactsQuery(undefined, {
     selectFromResult: ({ data }) => ({
       groups: data?.groups,
-      isLoadingGroups: data?.isLoading,
+      isLoadingGroups: data?.isLoadingGroups,
     }),
   })
 
