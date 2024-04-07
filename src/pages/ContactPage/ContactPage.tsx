@@ -1,26 +1,21 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { useParams } from 'react-router-dom'
-import { useAppSelector } from 'src/redux/hooks'
-import { Empty } from 'src/components/Empty'
-import { ContactCard } from 'src/components/ContactCard'
-import { ContactDto } from 'src/types/dto/ContactDto'
-import { Col, Row } from 'react-bootstrap'
+import { ContactCard } from 'src/components/ContactCard/ContactCard'
+import { Col, Row, Spinner } from 'react-bootstrap'
+import { useGetContactsQuery } from 'src/redux/contacts'
 
 export const ContactPage: FC = () => {
   const { contactId } = useParams<{ contactId: string }>()
-  const [contact, setContact] = useState<ContactDto>()
+  const { data: contacts, isLoading } = useGetContactsQuery()
+  const contact = contacts?.find(({ id }) => id === contactId)
 
-  const contacts = useAppSelector((state) => state.contacts)
-
-  useEffect(() => {
-    setContact(() => contacts.find(({ id }) => id === contactId))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contactId])
+  if (isLoading) return <Spinner animation="border" />
+  if (!contact) return null
 
   return (
     <Row xxl={3}>
       <Col className={'mx-auto'}>
-        {contact ? <ContactCard contact={contact} /> : <Empty />}
+        <ContactCard contact={contact} />
       </Col>
     </Row>
   )

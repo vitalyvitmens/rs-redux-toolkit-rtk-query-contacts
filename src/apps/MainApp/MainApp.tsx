@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { routes } from '../../routes'
+import { routes } from '../../routes/routes'
 import { BrowserRouter, Routes } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { persistor, store } from 'src/redux/store'

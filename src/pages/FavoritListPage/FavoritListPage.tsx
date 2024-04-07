@@ -1,15 +1,19 @@
 import { useAppSelector } from 'src/redux/hooks'
-import { ContactCard } from 'src/components/ContactCard'
+import { ContactCard } from 'src/components/ContactCard/ContactCard'
 import { Col, Row } from 'react-bootstrap'
 
 export const FavoritListPage = () => {
-  const contacts = useAppSelector((state) => state.favorites)
+  const favorites = useAppSelector((state) => state.favorites?.favorites)
+
+  if (!favorites) {
+    return null
+  }
 
   return (
     <Row xxl={4} className="g-4">
-      {contacts.map((contact) => (
-        <Col key={contact.id}>
-          <ContactCard contact={contact} withLink />
+      {favorites.map((favorit) => (
+        <Col key={favorit.id}>
+          <ContactCard contact={favorit} withLink />
         </Col>
       ))}
     </Row>

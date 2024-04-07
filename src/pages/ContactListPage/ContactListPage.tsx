@@ -1,54 +1,67 @@
-import { Suspense, useState } from 'react'
-import { useAppSelector } from 'src/redux/hooks'
-import { ContactCard } from 'src/components/ContactCard'
-import { FilterForm, FilterFormValues } from 'src/components/FilterForm'
+import { Suspense, useEffect, useState } from 'react'
+import { ContactCard } from 'src/components/ContactCard/ContactCard'
+import {
+  FilterForm,
+  FilterFormValues,
+} from 'src/components/FilterForm/FilterForm'
 import { ContactDto } from 'src/types/dto/ContactDto'
-import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Row, Spinner } from 'react-bootstrap'
+import { useGetContactsQuery } from 'src/redux/contacts'
+import { useGetGroupContactsQuery } from 'src/redux/groups'
 
 export const ContactListPage = () => {
-  const contactsData: ContactDto[] = useAppSelector((state) => state.contacts)
-  const groupsData: GroupContactsDto[] = useAppSelector((state) => state.groups)
-  const [contacts, setContacts] = useState<ContactDto[]>(contactsData)
-  const onSubmit = (fv: Partial<FilterFormValues>) => {
-    let findContacts = contacts
+  const [filteredContacts, setFilteredContacts] = useState<ContactDto[]>([])
+  const { data: contacts, isLoading } = useGetContactsQuery()
+  const { data: groups, isLoading: isLoadingGroups } =
+    useGetGroupContactsQuery()
 
-    if (fv.name) {
-      const fvName = fv.name.toLowerCase()
-      findContacts = findContacts.filter(
-        ({ name }) => name.toLowerCase().indexOf(fvName) > -1
-      )
+  useEffect(() => {
+    if (contacts) {
+      setFilteredContacts(contacts)
+    }
+  }, [contacts, groups])
+
+  const handleFilter = (filterValues: Partial<FilterFormValues>) => {
+    if (!contacts || !groups) {
+      return
     }
 
-    if (fv.groupId) {
-      const groupContacts = groupsData.find(({ id }) => id === fv.groupId)
-
-      if (groupContacts) {
-        findContacts = findContacts.filter(({ id }) =>
-          groupContacts.contactIds.includes(id)
+    const filtered = contacts.filter((contact) => {
+      const nameMatch =
+        !filterValues.name ||
+        contact.name.toLowerCase().includes(filterValues.name.toLowerCase())
+      const groupMatch =
+        !filterValues.groupId ||
+        groups.some(
+          (group) =>
+            group.id === filterValues.groupId &&
+            group.contactIds.includes(contact.id)
         )
-      }
-    }
+      return nameMatch && groupMatch
+    })
 
-    setContacts(findContacts)
+    setFilteredContacts(filtered)
   }
+  
+  if (isLoading || isLoadingGroups) return <Spinner animation="border" />
+  if (!groups || !filteredContacts) return null
 
   return (
     <Row xxl={1}>
       <Col className="mb-3">
-        <Suspense>
+        <Suspense fallback={<Spinner animation="border" />}>
           <FilterForm
-            groupContactsList={groupsData}
+            groupContactsList={groups}
+            onSubmit={handleFilter}
             initialValues={{}}
-            onSubmit={onSubmit}
           />
         </Suspense>
       </Col>
       <Col>
         <Row xxl={4} className="g-4">
-          {contacts.map((contact) => (
+          {filteredContacts?.map((contact) => (
             <Col key={contact.id}>
-              <Suspense>
+              <Suspense fallback={<Spinner animation="border" />}>
                 <ContactCard contact={contact} withLink />
               </Suspense>
             </Col>

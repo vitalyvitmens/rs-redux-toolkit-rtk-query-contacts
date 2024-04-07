@@ -1,10 +1,15 @@
-import { useAppSelector } from 'src/redux/hooks'
-import { GroupContactsCard } from 'src/components/GroupContactsCard'
-import { Col, Row } from 'react-bootstrap'
+import { GroupContactsCard } from 'src/components/GroupContactsCard/GroupContactsCard'
+import { Col, Row, Spinner } from 'react-bootstrap'
+import { useGetGroupContactsQuery } from 'src/redux/groups'
 
 export const GroupListPage = () => {
-  const groups = useAppSelector((state) => state.groups)
-  console.log(groups)
+  const { data: groups, isLoading } = useGetGroupContactsQuery()
+
+  if (isLoading) {
+    return <Spinner animation="border" />
+  } else if (!groups) {
+    return null
+  }
 
   return (
     <Row xxl={4}>
