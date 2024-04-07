@@ -6,7 +6,13 @@ import { useGetContactsQuery } from 'src/redux/contacts'
 
 export const ContactPage: FC = () => {
   const { contactId } = useParams<{ contactId: string }>()
-  const { data: contacts, isLoading } = useGetContactsQuery()
+  const { contacts, isLoading } = useGetContactsQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      contacts: data?.contacts,
+      isLoading: data?.isLoading,
+    }),
+  })
+
   const contact = contacts?.find(({ id }) => id === contactId)
 
   if (isLoading) return <Spinner animation="border" />

@@ -7,7 +7,8 @@ import {
 import { GroupContactsDto } from 'src/types/dto/GroupContactsDto'
 
 export interface GroupsApiResponse {
-  groups: GroupContactsDto[]
+  groups: GroupContactsDto[] | undefined
+  isLoading?: boolean | undefined
 }
 
 export const groupContactsApiSlice = createApi({

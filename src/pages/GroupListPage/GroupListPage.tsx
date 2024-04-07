@@ -3,9 +3,14 @@ import { Col, Row, Spinner } from 'react-bootstrap'
 import { useGetGroupContactsQuery } from 'src/redux/groups'
 
 export const GroupListPage = () => {
-  const { data: groups, isLoading } = useGetGroupContactsQuery()
+  const { groups, isLoadingGroups } = useGetGroupContactsQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      groups: data?.groups,
+      isLoadingGroups: data?.isLoading,
+    }),
+  })
 
-  if (isLoading) {
+  if (isLoadingGroups) {
     return <Spinner animation="border" />
   } else if (!groups) {
     return null

@@ -7,7 +7,8 @@ import {
 import { ContactDto } from 'src/types/dto/ContactDto'
 
 export interface ContactsApiResponse {
-  contacts: ContactDto[]
+  contacts: ContactDto[] | undefined
+  isLoading?: boolean | undefined
 }
 
 export const contactsApiSlice = createApi({

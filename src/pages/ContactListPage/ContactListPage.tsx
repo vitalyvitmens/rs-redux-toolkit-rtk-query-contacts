@@ -11,8 +11,18 @@ import { useGetGroupContactsQuery } from 'src/redux/groups'
 
 export const ContactListPage = () => {
   const [filteredContacts, setFilteredContacts] = useState<ContactDto[]>([])
-  const { contacts, isLoading } = useGetContactsQuery()
-  const { groups, isLoading: isLoadingGroups } = useGetGroupContactsQuery()
+  const { contacts, isLoading } = useGetContactsQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      contacts: data?.contacts,
+      isLoading: data?.isLoading,
+    }),
+  })
+  const { groups, isLoadingGroups } = useGetGroupContactsQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      groups: data?.groups,
+      isLoadingGroups: data?.isLoading,
+    }),
+  })
 
   useEffect(() => {
     if (contacts) {
