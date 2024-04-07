@@ -24,7 +24,7 @@ export const groupContactsApiSlice = createApi({
           response: GroupContactsDto[],
           meta
         ): GroupsApiResponse => {
-          return { groups: response, isLoadingGroups: meta?.response?.ok }
+          return { groups: response, isLoadingGroups: !meta?.response?.ok }
         },
       }),
     }

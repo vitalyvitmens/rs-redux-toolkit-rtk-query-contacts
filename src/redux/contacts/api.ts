@@ -21,7 +21,7 @@ export const contactsApiSlice = createApi({
       getContacts: builder.query<ContactsApiResponse, void>({
         query: () => CONTACTS_URL,
         transformResponse: (response: ContactDto[], meta): ContactsApiResponse => {
-          return { contacts: response, isLoading: meta?.response?.ok }
+          return { contacts: response, isLoading: !meta?.response?.ok }
         },
       }),
     }
