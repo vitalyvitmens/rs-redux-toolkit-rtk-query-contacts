@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { routes } from '../../routes/routes'
-import { BrowserRouter, Routes } from 'react-router-dom'
+import { HashRouter, Routes } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { persistor, store } from 'src/redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -17,13 +17,13 @@ export const MainApp = () => {
           breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
           minBreakpoint="xxs"
         >
-          <BrowserRouter>
+          <HashRouter>
             <ErrorBoundary>
               <Suspense>
                 <Routes>{renderRoutes(routes)}</Routes>
               </Suspense>
             </ErrorBoundary>
-          </BrowserRouter>
+          </HashRouter>
         </ThemeProvider>
       </PersistGate>
     </Provider>
