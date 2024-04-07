@@ -6,7 +6,7 @@ import {
 } from 'src/constants/config'
 import { ContactDto } from 'src/types/dto/ContactDto'
 
-interface ContactsApiResponse {
+export interface ContactsApiResponse {
   contacts: ContactDto[]
 }
 
